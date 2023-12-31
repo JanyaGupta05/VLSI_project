@@ -1,0 +1,10 @@
+
+.subckt addsub node_a node_b node_cin node_c node_s vdd gnd
+
+X2 node_b node_a node_t1 vdd gnd XOR
+X3 node_cin node_t1 node_s vdd gnd XOR
+X4 node_a node_b node_t2 vdd gnd AND
+X5 node_cin node_t1 node_cout vdd gnd AND
+X6 node_t2 node_cout node_c vdd gnd OR
+
+.ends addsub

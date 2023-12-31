@@ -1,0 +1,77 @@
+.include decoder.sub
+.include enable.sub
+.include addsub.sub
+.include addcompiled.sub
+.include andblock.sub
+.include comparator.sub
+.include XOR.sub
+.include AND.sub
+.include NOT.sub
+.include NAND.sub
+.include XNOR.sub
+.include OR.sub 
+.include NOR.sub
+.include TSMC_180nm.txt
+.param SUPPLY = 1.8
+.param LAMBDA = 0.18u
+
+.param wn1 = {10*LAMBDA}
+.param wn2 = {10*LAMBDA}
+.param ln1 = {2*LAMBDA}
+.param ln2 = {2*LAMBDA}
+
+.param wp1 = wn1
+.param wp2 = wn1
+.param lp1 = {LAMBDA}
+.param lp2 = {LAMBDA}
+
+.global gnd
+
+
+
+Vdd node_x gnd 'SUPPLY'
+
+
+V_in_a0 node_a0 gnd PULSE(0 1.8 0ns 100ps 100ps 20ns 40ns)
+V_in_a1 node_a1 gnd PULSE(0 1.8 0ns 100ps 100ps 20ns 40ns)
+V_in_a2 node_a2 gnd PULSE(0 1.8 0ns 100ps 100ps 20ns 40ns)
+V_in_a3 node_a3 gnd PULSE(0 1.8 0ns 100ps 100ps 20ns 40ns)
+V_in_b0 node_b0 gnd PULSE(0 1.8 0ns 100ps 100ps 20ns 70ns)
+V_in_b1 node_b1 gnd PULSE(0 1.8 0ns 100ps 100ps 20ns 30ns)
+V_in_b2 node_b2 gnd PULSE(0 1.8 0ns 100ps 100ps 50ns 70ns)
+V_in_b3 node_b3 gnd PULSE(0 1.8 0ns 100ps 100ps 50ns 70ns)
+V_in_S0 node_s0 gnd DC 1.8
+V_in_S1 node_s1 gnd DC 1.8
+
+X1 node_s0 node_s1 node_D0 node_D1 node_D2 node_D3 node_x gnd decoder
+
+X2 node_a0 node_a1 node_a2 node_a3 node_b0 node_b1 node_b2 node_b3 node_D0 node_Af0 node_Af1 node_Af2 node_Af3 node_Bf0 node_Bf1 node_Bf2 node_Bf3 node_x gnd enable
+X3 node_Af0 node_Af1 node_Af2 node_Af3 node_Bf0 node_Bf1 node_Bf2 node_Bf3 node_s0 node_suma0 node_suma1 node_suma2 node_suma3 node_carryaout node_x gnd addcompiled
+
+
+X7 node_a0 node_a1 node_a2 node_a3 node_b0 node_b1 node_b2 node_b3 node_D1 node_Af10 node_Af11 node_Af12 node_Af13 node_Bf10 node_Bf11 node_Bf12 node_Bf13 node_x gnd enable
+X8 node_Af10 node_Af11 node_Af12 node_Af13 node_Bf10 node_Bf11 node_Bf12 node_Bf13 node_s0 node_sums0 node_sums1 node_sums2 node_sums3 node_carrysout node_x gnd addcompiled
+
+
+X13 node_a0 node_a1 node_a2 node_a3 node_b0 node_b1 node_b2 node_b3 node_D2 node_Af20 node_Af21 node_Af22 node_Af23 node_Bf20 node_Bf21 node_Bf22 node_Bf23 node_x gnd enable
+X14 node_Af20 node_Af21 node_Af22 node_Af23 node_Bf20 node_Bf21 node_Bf22 node_Bf23 node_AgB node_AlB node_Aeb node_x gnd comparator
+
+X15 node_a0 node_a1 node_a2 node_a3 node_b0 node_b1 node_b2 node_b3 node_D3 node_Af30 node_Af31 node_Af32 node_Af33 node_Bf30 node_Bf31 node_Bf32 node_Bf33 node_x gnd enable
+X16 node_Af30 node_Af31 node_Af32 node_Af33 node_Bf30 node_Bf31 node_Bf32 node_Bf33 node_o0 node_o1 node_o2 node_o3 node_x gnd andblock
+
+.tran 1n 400n
+
+
+.control
+run
+set color0 = rgb:f/f/e
+set color1 = black
+ plot v(node_Af30) v(node_Af31)+2 v(node_Af32)+4 v(node_Af33)+6 
+ plot v(node_Bf30) v(node_Bf31)+2 v(node_Bf32)+4 v(node_Bf33)+6 
+ plot v(node_suma0) v(node_suma1)+2 v(node_suma2)+4 v(node_suma3)+6 v(node_carryaout)+8
+ plot v(node_sums0) v(node_sums1)+2 v(node_sums2)+4 v(node_sums3)+6 v(node_carrysout)+8
+ plot v(node_AgB) v(node_AlB)+2 v(node_Aeb)+4
+plot v(node_o0) v(node_o1)+2 v(node_o2)+4 v(node_o3)+6 
+
+.end
+.endc

@@ -1,0 +1,9 @@
+
+.subckt andblock node_a0 node_a1 node_a2 node_a3 node_b0 node_b1 node_b2 node_b3 node_o0 node_o1 node_o2 node_o3 vdd gnd
+
+X1 node_a0 node_b0 node_o0 vdd gnd AND
+X2 node_a1 node_b1 node_o1 vdd gnd AND
+X3 node_a2 node_b2 node_o2 vdd gnd AND
+X4 node_a3 node_b3 node_o3 vdd gnd AND
+
+.ends andblock

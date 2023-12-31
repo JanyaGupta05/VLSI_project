@@ -1,0 +1,46 @@
+
+
+.subckt comparator node_a0 node_a1 node_a2 node_a3 node_b0 node_b1 node_b2 node_b3 node_tAgB node_tAlB node_AeB vdd gnd
+X1 node_a0 node_an0 vdd gnd NOT
+X2 node_a1 node_an1 vdd gnd NOT
+X3 node_a2 node_an2 vdd gnd NOT
+X4 node_a3 node_an3 vdd gnd NOT
+X5 node_b0 node_bn0 vdd gnd NOT
+X6 node_b1 node_bn1 vdd gnd NOT
+X7 node_b2 node_bn2 vdd gnd NOT
+X8 node_b3 node_bn3 vdd gnd NOT
+
+X9 node_a3 node_bn3 node_t0 vdd gnd AND
+X10 node_a3 node_b3 node_t1 vdd gnd XNOR
+X11 node_a2 node_bn2 node_t21 vdd gnd AND
+X12 node_t21 node_t1 node_t2 vdd gnd AND
+X13 node_a2 node_b2 node_t3 vdd gnd XNOR
+X14 node_t3 node_t1 node_t41 vdd gnd AND
+X15 node_bn1 node_a1 node_t42 vdd gnd AND
+X16 node_t41 node_t42 node_t4 vdd gnd AND
+X17 node_a1 node_b1 node_t5 vdd gnd XNOR
+X18 node_t5 node_a0 node_t61 vdd gnd AND
+X19 node_t61 node_t41 node_t62 vdd gnd AND
+X20 node_t62 node_bn0 node_t6 vdd gnd AND
+X33 node_t0 node_t2 node_tAgB1 vdd gnd OR
+X34 node_t4 node_t6 node_tAgB2 vdd gnd OR
+X35 node_tAgB1 node_tAgB2 node_tAgB vdd gnd OR
+
+X22 node_an3 node_b3 node_t8 vdd gnd AND
+X23 node_an2 node_b2 node_t91 vdd gnd AND
+X24 node_t91 node_t1 node_t9 vdd gnd AND
+X25 node_b1 node_an1 node_t101 vdd gnd AND
+X26 node_t101 node_t41 node_t10 vdd gnd AND
+X27 node_an0 node_b0 node_t111 vdd gnd AND
+X28 node_t41 node_t5 node_t112 vdd gnd AND
+X29 node_t111 node_t112 node_t11 vdd gnd AND
+X30 node_t8 node_t9 node_tAlB1 vdd gnd OR
+X31 node_t10 node_t11 node_tAlB2 vdd gnd OR
+X32 node_tAlB1 node_tAlB2 node_tAlB vdd gnd OR
+
+X36 node_a0 node_b0 node_t12 vdd gnd XNOR
+X37 node_t1 node_t3 node_AeB1 vdd gnd AND
+X38 node_t5 node_t12 node_AeB2 vdd gnd AND
+X39 node_AeB1 node_AeB2 node_AeB vdd gnd AND
+
+.ends comparator

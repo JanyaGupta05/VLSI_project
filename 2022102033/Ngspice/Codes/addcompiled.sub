@@ -1,0 +1,14 @@
+.subckt addcompiled node_a0 node_a1 node_a2 node_a3 node_b0 node_b1 node_b2 node_b3 node_m node_sum0 node_sum1 node_sum2 node_sum3 node_carryout vdd gnd
+
+X1 node_m node_b0 node_bf0 vdd gnd XOR
+X2 node_m node_b1 node_bf1 vdd gnd XOR
+X3 node_m node_b2 node_bf2 vdd gnd XOR
+X4 node_m node_b3 node_bf3 vdd gnd XOR
+
+X5 node_a0 node_bf0 node_m node_c1 node_sum0 vdd gnd addsub
+X6 node_a1 node_bf1 node_c1 node_c2 node_sum1 vdd gnd addsub
+X7 node_a2 node_bf2 node_c2 node_c3 node_sum2 vdd gnd addsub
+X8 node_a3 node_bf3 node_c3 node_c4 node_sum3 vdd gnd addsub
+
+X9 node_c4 node_m node_carryout vdd gnd XOR
+.ends addcompiled
